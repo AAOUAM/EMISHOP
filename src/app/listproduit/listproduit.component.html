@@ -1,0 +1,21 @@
+<app-navbar (searchedText)="onSearchByKey($event)" [panier]="displayPanier"  (panierSelected)="showPanier($event)" (searchbyCategory)=showProductByCategory($event) ></app-navbar>
+
+<div >
+  <div class="row p-5" *ngIf="!displayPanier && !displayDetailProduct" >
+    <div class="col-sm-3 mt-4" *ngFor="let b of products">
+      <app-product-items [product]="b" (SelectedProduct)="AddToPanier($event)" (TheProduct)="DisplayDetailProduct($event)" ></app-product-items>
+    </div>
+  </div>
+
+  <app-panier *ngIf="displayPanier === true" [LignesPanier]="detailPanier"></app-panier>
+  <app-detail-product *ngIf="displayDetailProduct === true" [ProductAdetaile] = "ProductAdetail" ></app-detail-product>
+</div>
+
+
+
+
+
+
+
+
+

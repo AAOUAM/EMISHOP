@@ -1,0 +1,35 @@
+<h2 class="handwritten text-black mt-5 ms-5 bi bi-bag-check"> Mon Panier ( {{getTotalQuantite()}} produit(s))</h2>
+<div class="container mt-5">
+  <table class="styled-table">
+    <thead>
+    <tr>
+      <th>Image</th>
+      <th>Désignation</th>
+      <th>Prix (USD)</th>
+      <th>Quantité</th>
+      <th>Totale (USD)</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of LignesPanier">
+      <td>
+        <img [ngSrc]="item.produit.images[0]" width="50" height="50" />
+      </td>
+      <td>{{ item.produit.description }}</td>
+      <td class="price">{{ item.produit.price | currency:'USD' }}</td>
+      <td class="quantity-input">
+        <input type="number" [(ngModel)]="item.quantite" (change)="updateCart()" min="1" class="form-control" />
+      </td>
+      <td class="total">{{ item.quantite * item.produit.price | currency:'USD' }}</td>
+      <td>
+        <button class="btn btn-danger" (click)="removeFromCart(item.produit)">Supprimer</button>
+      </td>
+    </tr>
+    <tr class="total-row">
+      <td colspan="5" style="text-align: right;">Total :</td>
+      <td>{{ totalPrice | currency:'USD' }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

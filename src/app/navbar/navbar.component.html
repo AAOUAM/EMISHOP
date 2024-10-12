@@ -1,0 +1,42 @@
+<nav class="navbar navbar-expand-sm navbar-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">EmiShop</a>
+
+    <div class="d-flex w-50">
+      <form class="d-flex w-100" (submit)="searchbycategorie()">
+        <select class="form-select me-2 bg-light" [(ngModel)]="selectedCategory" name="category" (change)="searchbycategorie()" style="width: 15%;">
+          <option value="" selected >All</option>
+          <option *ngFor="let category of categories" [value]="category">
+            {{category}}
+          </option>
+        </select>
+        <input class="form-control me-2" name="searchTerm" type="text"
+               (ngModelChange)="onSearchByKey()" [(ngModel)]="searchKey" [ngClass]="{'active': isSearchActive}"
+               placeholder="Cherchez un produit, une marque ou une catégorie" aria-label="Search" style="width: 60%;">
+        <button class="btn btn-primary bi-search" (click)="toggleSearch()">Rechercher</button>
+      </form>
+    </div>
+
+
+    <div class="navbar-collapse d-flex " id="mynavbar">
+      <ul class="navbar-nav ms-auto">
+
+        <li class="nav-item">
+          <a class="nav-link bi bi-house"></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link bi bi-person-fill"></a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link bi bi-cart"  (click)="afficherPanier()"> </a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link bi bi-question-circle" href="#"></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
