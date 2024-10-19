@@ -7,6 +7,7 @@ import {LignePanier} from "../Models/LignePanier";
 import {PanierComponent} from "../panier/panier.component";
 import {ProductService} from "../Services/product.service";
 import {DetailProductComponent} from "../detail-product/detail-product.component";
+import {ActivatedRoute} from "@angular/router";
 
 
 
@@ -28,18 +29,47 @@ import {DetailProductComponent} from "../detail-product/detail-product.component
 })
 export class ListproduitComponent implements OnInit{
 
-  products: Array<any> = [];
+  products : any = [];
+  selectedCategorie:string = '';
+  searchText:string = '';
 
 
-  constructor(private service: ProductService) {}
+  constructor(private service: ProductService , private route:ActivatedRoute) {}
 
   ngOnInit() {
     this.service.getAllProducts().subscribe(
       (response : any)=>{
         this.products =  response.products
-    }
-    )
+    })
 
+    this.route.queryParams.subscribe(params => {
+      this.selectedCategorie = params['query'];
+      if (this.selectedCategorie) {
+        this.service.getProductsByCategory(this.selectedCategorie).subscribe(
+          (response: any) => {
+            // Suppose the response is an object and 'products' is the array we need
+            this.products = response.products || []; // Extraire le tableau ou un tableau vide
+          },
+          (err) => {
+            console.log('Error fetching data:', err);
+          }
+        );
+      }
+    });
+
+    this.route.queryParams.subscribe(params => {
+      this.searchText = params['query'];
+      if (this.searchText) {
+        this.service.getProductBykey(this.searchText).subscribe(
+          (response : any) => {
+            this.products = response.products || [];
+          },
+          (err) => {
+            console.log('Error fetching data:', err);
+          }
+        );
+      }
+    });
   }
 
 
@@ -64,20 +94,7 @@ export class ListproduitComponent implements OnInit{
     }
   }
 
-  showProductByCategory($event: any) {
-    this.service.getProductsByCategory($event).subscribe(
-      (response : any)=>{
-        this.products = response.products;
-      }
-    )
-  }
 
-  onSearchByKey(event : any){
-    this.service.getProductBykey(event)
-      .subscribe((response :any) =>{
-        this.products = response.products;
-      });
-  }
 
   DisplayDetailProduct($event: any) {
     this.displayDetailProduct = !this.displayDetailProduct ;

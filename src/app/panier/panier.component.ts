@@ -1,9 +1,11 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {LignePanier} from "../Models/LignePanier";
 import {NavbarComponent} from "../navbar/navbar.component";
 import {Product} from "../Models/product";
 import {FormsModule} from "@angular/forms";
 import {CurrencyPipe, NgForOf, NgOptimizedImage} from "@angular/common";
+import {PanierService} from "../Services/panier.service";
+import {update} from "@angular-devkit/build-angular/src/tools/esbuild/angular/compilation/parallel-worker";
 
 @Component({
   selector: 'app-panier',
@@ -17,30 +19,40 @@ import {CurrencyPipe, NgForOf, NgOptimizedImage} from "@angular/common";
   ],
   styleUrl: './panier.component.css'
 })
-export class PanierComponent {
-  @Input() LignesPanier: LignePanier[] = [];
+export class PanierComponent implements OnInit {
+  Panier: LignePanier[] = [];
+  totalPrice: number = 0;
+  Quantity : number = 0 ;
 
-  get totalPrice(): number {
-    return this.LignesPanier.reduce((acc, item) => acc + (item.quantite * item.produit.price), 0);
+  constructor(private PanierService: PanierService) {
   }
 
-  getTotalQuantite(): number {
-    return this.LignesPanier.reduce((total, item) => total + item.quantite, 0);
+  ngOnInit() {
+    this.PanierService.getCart().subscribe(
+      data => {
+        this.Panier = data;
+      });
+    this.updateCart()
   }
 
-  removeFromCart(product: Product) {
-    this.LignesPanier = this.LignesPanier.filter(p => p.produit.id !== product.id);
+  // Méthode pour supprimer un produit du panier
+  removeFromCart(product: Product): void {
+    this.PanierService.removeProductFromCart(product);
+    this.updateCart();
   }
 
+  // Calculer le prix total du panier
+  private calculateTotalPrice(panier: LignePanier[]): void {
+    this.totalPrice = panier.reduce((total, item) => total + (item.quantite * item.produit.price), 0);
+  }
 
-  updateCart() {
-    // Cette méthode est appelée lors d'un changement de quantité
-    this.LignesPanier = this.LignesPanier.map(item => {
-      // S'assurer que la quantité ne soit pas inférieure à 1
-      if (item.quantite < 1) {
-        item.quantite = 1;
-      }
-      return item;
-    });
+  updateCart(): void {
+    this.PanierService.updateCart();
+    this.calculateTotalPrice(this.Panier);
+    this.getTotalQuantite();
+  }
+
+  getTotalQuantite(){
+    this.Quantity = this.PanierService.getTotalQuantite();
   }
 }

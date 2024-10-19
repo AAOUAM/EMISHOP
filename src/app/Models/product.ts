@@ -10,10 +10,11 @@ export class Product {
   tags : string[] ;
   thumbnail : String ;
   discountPercentage : any ;
+  brand : string ;
 
   constructor(id : number ,nom: string, imageUrl: string[], prix: number,
               categorie: string, description: string, stock: number , rating : any ,
-              tags : string[] , thumbnail : String , discountPercentage : any) {
+              tags : string[] , thumbnail : String , discountPercentage : any , brand : string) {
     this.id = id;
     this.title = nom;
     this.images = imageUrl;
@@ -25,5 +26,6 @@ export class Product {
     this.tags = tags;
     this.thumbnail = thumbnail ;
     this.discountPercentage = discountPercentage;
+    this.brand = brand ;
   }
 }

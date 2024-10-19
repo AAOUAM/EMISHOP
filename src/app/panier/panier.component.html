@@ -1,4 +1,4 @@
-<h2 class="handwritten text-black mt-5 ms-5 bi bi-bag-check"> Mon Panier ( {{getTotalQuantite()}} produit(s))</h2>
+<h2 class="handwritten text-black mt-5 ms-5 bi bi-bag-check"> Mon Panier ( {{Quantity}} produit(s))</h2>
 <div class="container mt-5">
   <table class="styled-table">
     <thead>
@@ -12,7 +12,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let item of LignesPanier">
+    <tr *ngFor="let item of Panier">
       <td>
         <img [ngSrc]="item.produit.images[0]" width="50" height="50" />
       </td>

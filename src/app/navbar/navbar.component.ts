@@ -1,8 +1,9 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {RouterLink} from "@angular/router";
-import {NgClass, NgForOf, NgStyle} from "@angular/common";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
+import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ProductService} from "../Services/product.service";
+import {AuthService} from "../Services/auth.service";
 
 
 @Component({
@@ -13,7 +14,9 @@ import {ProductService} from "../Services/product.service";
     NgStyle,
     FormsModule,
     NgForOf,
-    NgClass
+    NgClass,
+    NgIf,
+    RouterLinkActive
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -22,9 +25,8 @@ export class NavbarComponent implements OnInit {
   categories: any[] = [];
   isSearchActive: boolean = false;
   searchKey !: string;
-  @Output() searchedText = new EventEmitter<string>();
 
-  constructor(private p: ProductService) {
+  constructor(private p: ProductService , protected AuthService : AuthService , private router :Router) {
   }
 
   ngOnInit() {
@@ -54,7 +56,9 @@ export class NavbarComponent implements OnInit {
 
 
   searchbycategorie() {
-    this.searchbyCategory.emit(this.selectedCategory)
+    if(this.selectedCategory){
+      this.router.navigate(['/Listproduit'] ,{queryParams:{ query :this.selectedCategory}});
+    }
   }
 
 
@@ -64,6 +68,15 @@ export class NavbarComponent implements OnInit {
   }
 
   onSearchByKey() {
-    this.searchedText.emit(this.searchKey)
+    if (this.searchKey) {
+      this.router.navigate(['/Listproduit'], { queryParams: { query: this.searchKey } });
+    }
+    else{
+      this.router.navigate(['/']);
+    }
+  }
+
+  Auth() {
+    this.AuthService.isAuthenticated = ! this.AuthService.isAuthenticated ;
   }
 }

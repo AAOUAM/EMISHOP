@@ -3,18 +3,20 @@
     <a class="navbar-brand" href="#">EmiShop</a>
 
     <div class="d-flex w-50">
-      <form class="d-flex w-100" (submit)="searchbycategorie()">
-        <select class="form-select me-2 bg-light" [(ngModel)]="selectedCategory" name="category" (change)="searchbycategorie()" style="width: 15%;">
-          <option value="" selected >All</option>
+
+        <select class="form-select me-2 bg-light" [(ngModel)]="selectedCategory" name="category" (ngModelChange)="searchbycategorie()" style="width: 15%;">
+          <option value="" disabled selected>All</option>
           <option *ngFor="let category of categories" [value]="category">
             {{category}}
           </option>
         </select>
-        <input class="form-control me-2" name="searchTerm" type="text"
-               (ngModelChange)="onSearchByKey()" [(ngModel)]="searchKey" [ngClass]="{'active': isSearchActive}"
-               placeholder="Cherchez un produit, une marque ou une catégorie" aria-label="Search" style="width: 60%;">
-        <button class="btn btn-primary bi-search" (click)="toggleSearch()">Rechercher</button>
-      </form>
+
+        <div class="d-flex w-100" >
+          <input class="form-control me-2" name="searchTerm" type="text"
+                 (ngModelChange)="onSearchByKey()" [(ngModel)]="searchKey" [ngClass]="{'active': isSearchActive}"
+                 placeholder="Cherchez un produit, une marque ou une catégorie" aria-label="Search" style="width: 60%;">
+          <button class="btn btn-primary bi-search" (click)="onSearchByKey()">Rechercher</button>
+        </div>
     </div>
 
 
@@ -22,20 +24,21 @@
       <ul class="navbar-nav ms-auto">
 
         <li class="nav-item">
-          <a class="nav-link bi bi-house"></a>
+          <a routerLink='/Listproduit' class="nav-link bi bi-house" ></a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link bi bi-person-fill"></a>
+          <a routerLink='/Auth' class="nav-link bi bi-person-fill" (click)="Auth()"></a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link bi bi-cart"  (click)="afficherPanier()"> </a>
+          <a class="nav-link bi bi-card-list"></a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link bi bi-question-circle" href="#"></a>
+          <a routerLink="/Panier" routerLinkActive="active" class="nav-link bi bi-cart"></a>
         </li>
+
       </ul>
     </div>
   </div>

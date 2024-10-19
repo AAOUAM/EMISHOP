@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, input, Output} from '@angular/core';
 import {Product} from "../Models/product";
 import {NgForOf, NgStyle , NgIf} from "@angular/common";
+import {PanierService} from "../Services/panier.service";
 
 @Component({
   selector: 'app-product-items',
@@ -18,9 +19,11 @@ export class ProductItemsComponent {
   @Output() SelectedProduct = new EventEmitter<Product>();
   @Output() TheProduct : EventEmitter<Product> = new EventEmitter<Product>();
 
+  constructor(private panier:PanierService ) {
+  }
 
   clickUser() {
-    this.SelectedProduct.emit(this.product)
+    this.panier.addToCart(this.product )
   }
 
   getColor(){

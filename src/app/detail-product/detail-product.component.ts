@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core';
-import {CurrencyPipe, NgForOf} from "@angular/common";
+import {CurrencyPipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {Product} from "../Models/product";
 
@@ -9,11 +9,14 @@ import {Product} from "../Models/product";
   imports: [
     CurrencyPipe,
     FormsModule,
-    NgForOf
+    NgForOf,
+    NgIf,
+    NgClass
   ],
   templateUrl: './detail-product.component.html',
   styleUrl: './detail-product.component.css'
 })
 export class DetailProductComponent {
   @Input() ProductAdetaile! : Product ;
+  protected readonly indexedDB = indexedDB;
 }
