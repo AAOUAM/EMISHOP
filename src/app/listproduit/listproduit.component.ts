@@ -28,7 +28,6 @@ import {ActivatedRoute} from "@angular/router";
   styleUrl: './listproduit.component.css'
 })
 export class ListproduitComponent implements OnInit{
-
   products : any = [];
   selectedCategorie:string = '';
   searchText:string = '';
@@ -65,7 +64,7 @@ export class ListproduitComponent implements OnInit{
             this.products = response.products || [];
           },
           (err) => {
-            console.log('Error fetching data:', err);
+            console.log('Error', err);
           }
         );
       }

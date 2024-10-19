@@ -23,4 +23,7 @@ export class ProductService {
   getProductBykey(text : string){
     return this.http.get(`https://dummyjson.com/products/search?q=${text}`)
   }
+
+  getProductById(id : any){
+    return this.http.get(`https://dummyjson.com/products/${id}`);  }
 }

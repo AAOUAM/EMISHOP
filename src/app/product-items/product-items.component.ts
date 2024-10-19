@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, input, Output} from '@angular/core';
 import {Product} from "../Models/product";
 import {NgForOf, NgStyle , NgIf} from "@angular/common";
 import {PanierService} from "../Services/panier.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-product-items',
@@ -19,7 +20,7 @@ export class ProductItemsComponent {
   @Output() SelectedProduct = new EventEmitter<Product>();
   @Output() TheProduct : EventEmitter<Product> = new EventEmitter<Product>();
 
-  constructor(private panier:PanierService ) {
+  constructor(private panier:PanierService , private route : Router) {
   }
 
   clickUser() {
@@ -46,6 +47,6 @@ export class ProductItemsComponent {
 
 
   ProductSelected() {
-    this.TheProduct.emit(this.product)
+    this.route.navigate(['/Produit', this.product.id]);
   }
 }

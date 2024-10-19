@@ -10,7 +10,7 @@ import {OrdersComponent} from "./orders/orders.component";
 export const routes: Routes = [
   { path: 'Panier', component: PanierComponent },
   { path: 'Listproduit', component: ListproduitComponent },
-  { path: 'DetailProduct', component: DetailProductComponent },
+  { path: 'Produit/:id', component: DetailProductComponent },
   { path: 'ProductItems', component: ProductItemsComponent },
   { path: 'Auth', component: AuthComponent },
   { path: 'SignUp', component: SignUpComponent },
