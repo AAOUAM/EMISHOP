@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {FormsModule} from "@angular/forms";
@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit {
 
   navbarVisible: boolean = true;
 
-  constructor(private p: ProductService , private AuthService : AuthService , private router :Router , private navbarService: NavbarService) {
+  constructor(private cdr: ChangeDetectorRef ,private p: ProductService , private AuthService : AuthService , private router :Router , private navbarService: NavbarService) {
   }
 
   ngOnInit() {
@@ -79,9 +79,22 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  Authen:boolean = this.AuthService.iAuth() ;
+
   Auth() {
     this.AuthService.setTrue() ;
+    this.Authen = true;
   }
+
+  LogOut() {
+    if (confirm("Êtes-vous sûr de vouloir vous déconnecter ?")) {
+      this.AuthService.setFalse();
+      this.Authen = false;
+      this.cdr.detectChanges();
+    }
+  }
+
+
 
 
 

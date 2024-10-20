@@ -27,8 +27,12 @@
           <a routerLink='/Listproduit' class="nav-link bi bi-house" ></a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="Authen===false">
           <a routerLink='/Auth' class="nav-link bi bi-person-fill" (click)="Auth()"></a>
+        </li>
+
+        <li class="nav-item" *ngIf="Authen===true">
+          <a class="nav-link bi bi-box-arrow-right" (click)="LogOut()"></a>
         </li>
 
         <li class="nav-item">
