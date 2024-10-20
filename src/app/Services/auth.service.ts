@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isAuthenticated: boolean = false ;
+  isAuthenticated: boolean = true ;
   constructor() { }
 
   iAuth(): boolean {
@@ -14,4 +15,9 @@ export class AuthService {
   setTrue(): void {
     this.isAuthenticated = true;
   }
+
+  setFalse(): void {
+    this.isAuthenticated = false;
+  }
+
 }

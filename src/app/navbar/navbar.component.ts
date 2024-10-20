@@ -4,6 +4,7 @@ import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ProductService} from "../Services/product.service";
 import {AuthService} from "../Services/auth.service";
+import {NavbarService} from "../Services/navbar.service";
 
 
 @Component({
@@ -26,7 +27,9 @@ export class NavbarComponent implements OnInit {
   isSearchActive: boolean = false;
   searchKey !: string;
 
-  constructor(private p: ProductService , protected AuthService : AuthService , private router :Router) {
+  navbarVisible: boolean = true;
+
+  constructor(private p: ProductService , private AuthService : AuthService , private router :Router , private navbarService: NavbarService) {
   }
 
   ngOnInit() {
@@ -39,6 +42,10 @@ export class NavbarComponent implements OnInit {
         console.error('Erreur lors de la récupération des catégories:', error);
       }
     );
+
+    this.navbarService.navbarVisibility.subscribe(visible => {
+      this.navbarVisible = visible;
+    });
   }
 
 
@@ -51,7 +58,6 @@ export class NavbarComponent implements OnInit {
   }
 
   @Output() searchbyCategory = new EventEmitter<string>();
-
   selectedCategory!: string;
 
 
@@ -71,12 +77,12 @@ export class NavbarComponent implements OnInit {
     if (this.searchKey) {
       this.router.navigate(['/Listproduit'], { queryParams: { query: this.searchKey } });
     }
-    else{
-      this.router.navigate(['/']);
-    }
   }
 
   Auth() {
-    this.AuthService.isAuthenticated = ! this.AuthService.isAuthenticated ;
+    this.AuthService.setTrue() ;
   }
+
+
+
 }

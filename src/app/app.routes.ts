@@ -6,6 +6,7 @@ import {AuthComponent} from "./auth/auth.component";
 import {SignUpComponent} from "./sign-up/sign-up.component";
 import {DetailProductComponent} from "./detail-product/detail-product.component";
 import {OrdersComponent} from "./orders/orders.component";
+import {AuthGuardService} from "./Services/auth-guard.service";
 
 export const routes: Routes = [
   { path: 'Panier', component: PanierComponent },
@@ -14,7 +15,7 @@ export const routes: Routes = [
   { path: 'ProductItems', component: ProductItemsComponent },
   { path: 'Auth', component: AuthComponent },
   { path: 'SignUp', component: SignUpComponent },
-  { path: 'Orders', component: OrdersComponent , canActivate : [] },
+  { path: 'Orders', component: OrdersComponent , canActivate : [AuthGuardService] },
   {
     path: '',
     redirectTo: 'Listproduit',
