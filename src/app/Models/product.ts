@@ -14,7 +14,7 @@ export class Product {
 
   constructor(id : number ,nom: string, imageUrl: string[], prix: number,
               categorie: string, description: string, stock: number , rating : any ,
-              tags : string[] , thumbnail : String , discountPercentage : any , brand : string) {
+              tags : string[] , thumbnail : String , discountPercentage : any , brand : string ) {
     this.id = id;
     this.title = nom;
     this.images = imageUrl;

@@ -11,7 +11,7 @@
       {{product.description}}
       <br>
     </p>
-    <a *ngIf="product.stock > 0" (click)="clickUser()" class="btn btn-success">
+    <a *ngIf="product.stock > 0" (click)="addTopanier()" class="btn btn-success">
       Ajouter au panier <i class="bi bi-basket"></i>
     </a>
   </div>

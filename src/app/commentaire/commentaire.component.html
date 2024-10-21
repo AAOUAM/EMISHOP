@@ -1,0 +1,24 @@
+<div *ngFor="let commentaire of commentaires">
+  <p><strong>{{ commentaire.user }}</strong> ({{ commentaire.date | date }}):</p>
+  <p>{{ commentaire.comment }}</p>
+</div>
+
+<form [formGroup]="commentaireForm" (ngSubmit)="ajouterCommentaire()">
+  <div>
+    <label for="user">Auteur :</label>
+    <input id="user" formControlName="user" type="text" placeholder="Votre nom" />
+  </div>
+
+  <div>
+    <label for="contenu">Commentaire :</label>
+    <textarea id="contenu" formControlName="contenu" placeholder="Votre commentaire"></textarea>
+  </div>
+
+  <div>
+    <label for="rating">rating :</label>
+    <input id="rating" formControlName="rating" type="number" placeholder="Votre rating" />
+  </div>
+
+  <button type="submit" [disabled]="commentaireForm.invalid">Ajouter</button>
+</form>
+

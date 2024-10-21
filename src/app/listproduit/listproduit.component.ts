@@ -27,10 +27,25 @@ import {ActivatedRoute} from "@angular/router";
   templateUrl: './listproduit.component.html',
   styleUrl: './listproduit.component.css'
 })
+
+
 export class ListproduitComponent implements OnInit{
   products : any = [];
   selectedCategorie:string = '';
-  searchText:string = '';
+  Recherche:string = '';
+
+
+  //ProductAdetail! : Product ;
+
+  //displayPanier:boolean = false;
+  //displayDetailProduct:boolean = false;
+  //showPanier(e:boolean){
+  //this.displayPanier = e;
+  //}
+
+  //DisplayDetailProduct($event: any) {
+  //this.displayDetailProduct = !this.displayDetailProduct ;
+  //this.ProductAdetail = $event  }
 
 
   constructor(private service: ProductService , private route:ActivatedRoute) {}
@@ -42,7 +57,7 @@ export class ListproduitComponent implements OnInit{
     })
 
     this.route.queryParams.subscribe(params => {
-      this.selectedCategorie = params['query'];
+      this.selectedCategorie = params['cat'];
       if (this.selectedCategorie) {
         this.service.getProductsByCategory(this.selectedCategorie).subscribe(
           (response: any) => {
@@ -57,9 +72,9 @@ export class ListproduitComponent implements OnInit{
     });
 
     this.route.queryParams.subscribe(params => {
-      this.searchText = params['query'];
-      if (this.searchText) {
-        this.service.getProductBykey(this.searchText).subscribe(
+      this.Recherche = params['recherche'];
+      if (this.Recherche) {
+        this.service.getProductBykey(this.Recherche).subscribe(
           (response : any) => {
             this.products = response.products || [];
           },
@@ -73,15 +88,6 @@ export class ListproduitComponent implements OnInit{
 
 
   detailPanier: LignePanier[] = [];
-
-  ProductAdetail! : Product ;
-
-  displayPanier:boolean = false;
-  displayDetailProduct:boolean = false;
-  showPanier(e:boolean){
-    this.displayPanier = e;
-  }
-
   AddToPanier(p : Product) {
     let produitExistant = this.detailPanier.find(item => item.produit.id === p.id) ;
     if (!produitExistant) {
@@ -93,9 +99,4 @@ export class ListproduitComponent implements OnInit{
     }
   }
 
-
-
-  DisplayDetailProduct($event: any) {
-    this.displayDetailProduct = !this.displayDetailProduct ;
-    this.ProductAdetail = $event  }
 }

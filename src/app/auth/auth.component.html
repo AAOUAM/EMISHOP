@@ -4,19 +4,21 @@
 </div>
 <div id="login-form-wrap">
   <h2>Se connecter</h2>
-  <form id="login-form">
+  <form id="login-form" (ngSubmit)="register(f)"  #f= "ngForm">
     <p>
-      <input type="email" id="email" name="email" placeholder="Votre email" required><i class="validation"><span></span><span></span></i>
+      <input type="email" id="email" name="email" [(ngModel)]="user.email" required
+             placeholder="Votre email" ><span></span><span></span>
     </p>
     <p>
-      <input type="password" id="password" name="password" placeholder="Votre mot de passe" required><i class="validation"><span></span><span></span></i>
+      <input type="password" id="password" name="password" [(ngModel)]="user.password" required
+             placeholder="Votre mot de passe" ><span></span><span></span>
     </p>
     <p>
-      <input type="submit" id="login" value="Login">
+      <input type="submit" id="login" value="Login" (click)="Login()">
     </p>
   </form>
   <div id="create-account-wrap">
-    <p>Nouveau chez EMISHOP? <a href="#">Créer votre compte</a><p>
+    <p>Nouveau chez EMISHOP? <a routerLink='/inscription'>Créer votre compte</a><p>
   </div><!--create-account-wrap-->
 </div><!--login-form-wrap-->
 <!-- partial -->

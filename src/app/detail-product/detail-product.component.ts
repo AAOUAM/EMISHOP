@@ -5,6 +5,8 @@ import {Product} from "../Models/product";
 import {ActivatedRoute} from "@angular/router";
 import {ProductService} from "../Services/product.service";
 import {PanierService} from "../Services/panier.service";
+import {CommentaireComponent} from "../commentaire/commentaire.component";
+import {Commentaire} from "../Models/Commentaire";
 
 @Component({
   selector: 'app-detail-product',
@@ -14,7 +16,8 @@ import {PanierService} from "../Services/panier.service";
     FormsModule,
     NgForOf,
     NgIf,
-    NgClass
+    NgClass,
+    CommentaireComponent
   ],
   templateUrl: './detail-product.component.html',
   styleUrl: './detail-product.component.css'
@@ -22,12 +25,15 @@ import {PanierService} from "../Services/panier.service";
 export class DetailProductComponent implements OnInit{
   ProductAdetaile! : Product ;
 
+  review! : Commentaire[] ;
+
+  Cm: boolean = true;
+
   constructor(private route : ActivatedRoute , private service : ProductService , private panier : PanierService) {
   }
 
   ngOnInit(): void {
     const id : any = this.route.snapshot.params['id'];
-
     this.service.getProductById(id).subscribe(
       (response : any) => {
         this.ProductAdetaile = response;
@@ -38,7 +44,12 @@ export class DetailProductComponent implements OnInit{
     );
   }
 
-  clickUser() {
+  addTopanier() {
     this.panier.addToCart(this.ProductAdetaile )
+  }
+
+  AjouterCommentaire() {
+    this.Cm = true ;
+
   }
 }

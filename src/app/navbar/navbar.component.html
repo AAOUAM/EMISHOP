@@ -13,9 +13,9 @@
 
         <div class="d-flex w-100" >
           <input class="form-control me-2" name="searchTerm" type="text"
-                 (ngModelChange)="onSearchByKey()" [(ngModel)]="searchKey" [ngClass]="{'active': isSearchActive}"
+                 (ngModelChange)="searchByKey()" [(ngModel)]="searchKey"
                  placeholder="Cherchez un produit, une marque ou une catégorie" aria-label="Search" style="width: 60%;">
-          <button class="btn btn-primary bi-search" (click)="onSearchByKey()">Rechercher</button>
+          <button class="btn btn-primary bi-search" (click)="searchByKey()">Rechercher</button>
         </div>
     </div>
 

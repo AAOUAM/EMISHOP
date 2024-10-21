@@ -19,7 +19,7 @@
       <td>{{ item.produit.description }}</td>
       <td class="price">{{ item.produit.price | currency:'USD' }}</td>
       <td class="quantity-input">
-        <input type="number" [(ngModel)]="item.quantite" (change)="updateCart()" min="1" class="form-control" />
+        <input type="number" [(ngModel)]="item.quantite" (change)="updatepanier()" min="1" class="form-control" />
       </td>
       <td class="total">{{ item.quantite * item.produit.price | currency:'USD' }}</td>
       <td>

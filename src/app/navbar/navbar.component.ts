@@ -4,7 +4,6 @@ import {NgClass, NgForOf, NgIf, NgStyle} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {ProductService} from "../Services/product.service";
 import {AuthService} from "../Services/auth.service";
-import {NavbarService} from "../Services/navbar.service";
 
 
 @Component({
@@ -24,12 +23,24 @@ import {NavbarService} from "../Services/navbar.service";
 })
 export class NavbarComponent implements OnInit {
   categories: any[] = [];
-  isSearchActive: boolean = false;
   searchKey !: string;
+  selectedCategory!: string;
 
-  navbarVisible: boolean = true;
+  //isSearchActive: boolean = false;
+  //@Input() panier!: boolean;
+  //@Output() panierSelected = new EventEmitter<boolean>;
+  //afficherPanier() {
+    //this.panier = !this.panier;
+    //this.panierSelected.emit(this.panier)
+  //}
+  //@Output() searchbyCategory = new EventEmitter<string>();
 
-  constructor(private cdr: ChangeDetectorRef ,private p: ProductService , private AuthService : AuthService , private router :Router , private navbarService: NavbarService) {
+  //toggleSearch() {
+  //this.isSearchActive = !this.isSearchActive;
+  //}
+
+
+  constructor(private cdr: ChangeDetectorRef ,private p: ProductService , private AuthService : AuthService , private router :Router ) {
   }
 
   ngOnInit() {
@@ -43,46 +54,23 @@ export class NavbarComponent implements OnInit {
       }
     );
 
-    this.navbarService.navbarVisibility.subscribe(visible => {
-      this.navbarVisible = visible;
-    });
-  }
-
-
-  @Input() panier!: boolean;
-  @Output() panierSelected = new EventEmitter<boolean>;
-
-  afficherPanier() {
-    this.panier = !this.panier;
-    this.panierSelected.emit(this.panier)
-  }
-
-  @Output() searchbyCategory = new EventEmitter<string>();
-  selectedCategory!: string;
-
+      }
 
   searchbycategorie() {
     if(this.selectedCategory){
-      this.router.navigate(['/Listproduit'] ,{queryParams:{ query :this.selectedCategory}});
+      this.router.navigate(['/Listproduit'] ,{queryParams:{ cat :this.selectedCategory}});
     }
   }
 
-
-
-  toggleSearch() {
-    this.isSearchActive = !this.isSearchActive;
-  }
-
-  onSearchByKey() {
+  searchByKey() {
     if (this.searchKey) {
-      this.router.navigate(['/Listproduit'], { queryParams: { query: this.searchKey } });
+      this.router.navigate(['/Listproduit'], { queryParams: { recherche: this.searchKey } });
     }
   }
 
   Authen:boolean = this.AuthService.iAuth() ;
 
   Auth() {
-    this.AuthService.setTrue() ;
     this.Authen = true;
   }
 
@@ -93,9 +81,4 @@ export class NavbarComponent implements OnInit {
       this.cdr.detectChanges();
     }
   }
-
-
-
-
-
 }

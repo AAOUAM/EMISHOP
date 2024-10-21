@@ -18,12 +18,12 @@ import {Router} from "@angular/router";
 export class ProductItemsComponent {
   @Input() product!: Product;
   @Output() SelectedProduct = new EventEmitter<Product>();
-  @Output() TheProduct : EventEmitter<Product> = new EventEmitter<Product>();
+  //@Output() TheProduct : EventEmitter<Product> = new EventEmitter<Product>();
 
   constructor(private panier:PanierService , private route : Router) {
   }
 
-  clickUser() {
+  addTopanier() {
     this.panier.addToCart(this.product )
   }
 
@@ -44,7 +44,6 @@ export class ProductItemsComponent {
       return "En rupture de Stock"
     }
   }
-
 
   ProductSelected() {
     this.route.navigate(['/Produit', this.product.id]);

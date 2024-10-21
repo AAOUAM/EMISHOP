@@ -1,0 +1,79 @@
+<div class="container mt-5 mb-5">
+  <div class="text-center">
+    <img src="../../assets/logo_transparent.png" height="200" width="200"/>
+  </div>
+  <h1 class="text-center mb-4">Je crée mon compte</h1>
+  <form>
+    <div class="row">
+      <!-- Personal Information Section -->
+      <div class="col-md-6">
+        <h4 class="mb-3">Mes informations personnelles</h4>
+        <div class="mb-3">
+
+          <div class="mb-3">
+            <label for="prenom" class="form-label">Mon prénom *</label>
+            <input type="text" class="form-control" id="prenom" name="prenom" placeholder="Mon prénom" required>
+          </div>
+          <div class="mb-3">
+            <label for="nom" class="form-label">Mon nom *</label>
+            <input type="text" class="form-control" id="nom" name="nom" placeholder="Mon nom" required>
+          </div>
+
+          <label class="form-label">Le sexe</label><br>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="civility" id="homme" value="homme">
+            <label class="form-check-label" for="homme">Homme</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="civility" id="femme" value="felle">
+            <label class="form-check-label" for="femme">femme</label>
+          </div>
+        </div>
+
+
+        <div class="mb-3">
+          <label for="date_naissance" class="form-label">Ma date de naissance *</label>
+          <input type="date" class="form-control" id="date_naissance" name="date_naissance" required>
+        </div>
+        <div class="mb-3">
+          <label for="telephone" class="form-label">Mon téléphone *</label>
+          <div class="input-group">
+            <span class="input-group-text">+212</span>
+            <input type="tel" class="form-control" id="telephone" name="telephone" placeholder="Mon téléphone" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- Connection Information Section -->
+      <div class="col-md-6 ">
+        <h4 class="mb-3">Mes informations de connexion</h4>
+        <div class="mb-3">
+          <label for="email" class="form-label">Mon e-mail *</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Mon e-mail" required>
+        </div>
+        <div class="mb-3">
+          <label for="confirm_email" class="form-label">Je confirme mon e-mail *</label>
+          <input type="email" class="form-control" id="confirm_email" name="confirm_email" placeholder="Je confirme mon e-mail" required>
+        </div>
+        <div class="mb-3">
+          <label for="password" class="form-label">Mon mot de passe *</label>
+          <input type="password" class="form-control" id="password" name="password" placeholder="Mon mot de passe" required>
+        </div>
+        <div class="mb-3">
+          <label for="confirm_password" class="form-label">Je confirme mon mot de passe *</label>
+          <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Je confirme mon mot de passe" required>
+        </div>
+
+        <div class="d-flex justify-content-center">
+          <button type="submit" class="btn btn-primary mt-3">Je crée mon compte</button>
+        </div>
+
+        <p class="text-center mt-3">Vous avez déja un compte?
+          <a class="text-decoration-text text-success" routerLink="/Auth" >Connectez-vous</a>
+        </p>
+
+      </div>
+    </div>
+
+  </form>
+</div>

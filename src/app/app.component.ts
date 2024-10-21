@@ -9,12 +9,13 @@ import {Product} from "./Models/product";
 import {LignePanier} from "./Models/LignePanier";
 import {routes} from "./app.routes";
 import {AuthService} from "./Services/auth.service";
+import {FormsModule} from "@angular/forms";
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ RouterModule, RouterOutlet, ListproduitComponent, NavbarComponent, DetailProductComponent, NgIf],
+  imports: [ FormsModule , RouterModule, RouterOutlet, ListproduitComponent, NavbarComponent, DetailProductComponent, NgIf],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         // Masquer le Navbar sur les routes d'authentification
-        if (event.url === '/SignUp' || event.url === '/Auth') {
+        if (event.url === '/inscription' || event.url === '/Auth') {
           this.afficherNavbar = false;
         } else {
           this.afficherNavbar = true;

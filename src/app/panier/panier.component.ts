@@ -28,31 +28,29 @@ export class PanierComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.PanierService.getCart().subscribe(
+    this.PanierService.panier().subscribe(
       data => {
         this.Panier = data;
       });
-    this.updateCart()
+    this.updatepanier()
   }
 
-  // Méthode pour supprimer un produit du panier
   removeFromCart(product: Product): void {
-    this.PanierService.removeProductFromCart(product);
-    this.updateCart();
+    this.PanierService.Supprimerproduit(product);
+    this.updatepanier();
   }
 
-  // Calculer le prix total du panier
   private calculateTotalPrice(panier: LignePanier[]): void {
     this.totalPrice = panier.reduce((total, item) => total + (item.quantite * item.produit.price), 0);
   }
 
-  updateCart(): void {
-    this.PanierService.updateCart();
+  updatepanier(): void {
+    this.PanierService.updatepanier();
     this.calculateTotalPrice(this.Panier);
     this.getTotalQuantite();
   }
 
   getTotalQuantite(){
-    this.Quantity = this.PanierService.getTotalQuantite();
+    this.Quantity = this.PanierService.TotalQuantite();
   }
 }
