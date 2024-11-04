@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CurrencyPipe, NgClass, NgForOf, NgIf} from "@angular/common";
+import {CurrencyPipe, DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {Product} from "../Models/product";
 import {ActivatedRoute} from "@angular/router";
@@ -7,6 +7,8 @@ import {ProductService} from "../Services/product.service";
 import {PanierService} from "../Services/panier.service";
 import {CommentaireComponent} from "../commentaire/commentaire.component";
 import {Commentaire} from "../Models/Commentaire";
+
+
 
 @Component({
   selector: 'app-detail-product',
@@ -17,7 +19,8 @@ import {Commentaire} from "../Models/Commentaire";
     NgForOf,
     NgIf,
     NgClass,
-    CommentaireComponent
+    CommentaireComponent,
+    DatePipe,
   ],
   templateUrl: './detail-product.component.html',
   styleUrl: './detail-product.component.css'
@@ -27,7 +30,8 @@ export class DetailProductComponent implements OnInit{
 
   review! : Commentaire[] ;
 
-  Cm: boolean = true;
+  Cm: boolean = false;
+  commentaires: Commentaire[] = [];
 
   constructor(private route : ActivatedRoute , private service : ProductService , private panier : PanierService) {
   }
@@ -50,6 +54,10 @@ export class DetailProductComponent implements OnInit{
 
   AjouterCommentaire() {
     this.Cm = true ;
+  }
 
+  onCommentaireAjoute(nouveauCommentaire: Commentaire): void {
+    this.commentaires.push(nouveauCommentaire);
+    this.Cm = false
   }
 }

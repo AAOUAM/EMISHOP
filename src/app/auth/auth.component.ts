@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import {AuthService} from "../Services/auth.service";
-import {Router, RouterLink, Routes} from "@angular/router";
-import {FormsModule, NgForm} from "@angular/forms";
-import {User} from "../Models/User";
+import { AuthService } from "../Services/auth.service";
+import {Router, RouterLink} from "@angular/router";
+import { FormsModule, NgForm } from "@angular/forms";
+import { User } from "../Models/User";
 
 @Component({
   selector: 'app-auth',
@@ -16,26 +16,24 @@ import {User} from "../Models/User";
 })
 export class AuthComponent {
 
-  user!: User ;
+  user: User = {
+    username: '',
+    email: '',
+    password: '',
+    sexe : '',
+    tel : '',
+    datenaissance : new Date
+  };
 
-  constructor(private AuthService: AuthService, private route: Router) {
-  }
-
-  Login() {
-    this.AuthService.setTrue();
-    this.route.navigate(['/Listproduit'])
-
-  }
+  constructor(private AuthService: AuthService, private route: Router) {}
 
 
   register(f: NgForm) {
     const email: string = f.value['email'];
     const password: string = f.value['password'];
 
-    this.user.email = email ;
-    this.user.password = password ;
+    console.log('Email:', email, 'Password:', password);
 
-    console.log(this.user)
-    }
+    this.AuthService.login(email , password);
   }
-
+}

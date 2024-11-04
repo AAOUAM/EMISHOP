@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/emishop",
+            "outputPath": "front/emishop",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -100,5 +100,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": "668de966-9057-4045-a65c-3e933b2aeaba"
   }
 }

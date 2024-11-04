@@ -1,4 +1,5 @@
 <h2 class="handwritten text-primary mt-5 ms-5 bi bi-bag-check">Mes commandes :</h2>
+
 <div class="container mt-5">
   <table class="styled-table">
     <thead>
@@ -11,18 +12,21 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td></td>
-      <td></td>
-      <td></td>
-      <td class="quantity-input">
-        <input type="number" min="1" class="form-control quantity-box" />
+    <!-- Loop over commandes using async pipe -->
+    <tr *ngFor="let commande of commandes$ | async">
+      <td>
+        <img *ngIf="commande.detail[0].produit.images" [src]="commande.detail[0].produit.images[0]" alt="Product Image" style="max-width: 100px; max-height: 100px; object-fit: cover;"/>
       </td>
-      <td class="total"></td>
+      <td>{{ commande.detail[0].produit.title }}</td>
+      <td>{{ commande.detail[0].produit.price | currency: 'USD' }}</td>
+      <td>{{ commande.detail[0].quantite }}</td>
+      <td>{{ commande.detail[0].produit.price * commande.detail[0].quantite | currency: 'USD' }}</td>
     </tr>
+
+    <!-- Display total of the order -->
     <tr class="total-row">
       <td colspan="4" style="text-align: right; font-weight: bold;">Total :</td>
-      <td> </td>
+      <td>{{ calculateTotal() | currency: 'USD' }}</td>
     </tr>
     </tbody>
   </table>

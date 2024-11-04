@@ -27,8 +27,8 @@
       </td>
     </tr>
     <tr class="total-row">
-      <td colspan="5" style="text-align: right;">Total :</td>
-      <td>{{ totalPrice | currency:'USD' }}</td>
+      <td colspan="5" style="text-align: right;">Total : {{ totalPrice | currency:'USD' }}</td>
+      <td> <button class=" btn btn-success" (click)="Commander()">COMMANDER</button></td>
     </tr>
     </tbody>
   </table>

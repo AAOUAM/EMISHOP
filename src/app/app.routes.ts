@@ -3,14 +3,15 @@ import {PanierComponent} from "./panier/panier.component";
 import {ListproduitComponent} from "./listproduit/listproduit.component";
 import {ProductItemsComponent} from "./product-items/product-items.component";
 import {AuthComponent} from "./auth/auth.component";
-import {SignUpComponent} from "./sign-up/sign-up.component";
 import {DetailProductComponent} from "./detail-product/detail-product.component";
 import {OrdersComponent} from "./orders/orders.component";
 import {AuthGuardService} from "./Services/auth-guard.service";
 import {InscriptionComponent} from "./inscription/inscription.component";
+import {PaiementComponent} from "./paiement/paiement.component";
 
 export const routes: Routes = [
   { path: 'Panier', component: PanierComponent },
+  {path : 'paiement' , component: PaiementComponent , canActivate : [AuthGuardService] },
   { path: 'Listproduit', component: ListproduitComponent },
   { path: 'Produit/:id', component: DetailProductComponent },
   { path: 'ProductItems', component: ProductItemsComponent },

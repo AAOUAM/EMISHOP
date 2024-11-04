@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {Commentaire} from "../Models/Commentaire";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {DatePipe, NgForOf} from "@angular/common";
@@ -14,33 +14,45 @@ import {DatePipe, NgForOf} from "@angular/common";
   templateUrl: './commentaire.component.html',
   styleUrl: './commentaire.component.css'
 })
-export class CommentaireComponent {
+export class CommentaireComponent implements OnInit{
+
+  ngOnInit(): void {
+
+  }
+  @Output() LesCommentiares = new EventEmitter<Commentaire>();
+
   commentaireForm: FormGroup;
-  commentaires: Commentaire[] = [];
+
+  commentaire!: Commentaire ;
   nextId: number = 1;
 
   constructor(private fb: FormBuilder) {
     // Initialisation du formulaire
     this.commentaireForm = this.fb.group({
       user: ['', Validators.required],
-      comment: ['', Validators.required]
+      contenu: ['', Validators.required],
+      rating: ['', Validators.required] // Ajout du champ rating
     });
   }
 
   ajouterCommentaire(): void {
     if (this.commentaireForm.valid) {
       const nouveauCommentaire: Commentaire = {
-        user: this.commentaireForm.value.auteur,
-        comment: this.commentaireForm.value.contenu,
-        date: new Date(),
-        rating : this.commentaireForm.value.rating
+        user: this.commentaireForm.value.user,  // Correspond à 'user' dans le formulaire
+        comment: this.commentaireForm.value.contenu,  // Correspond à 'comment' dans le formulaire
+        rating: this.commentaireForm.value.rating, // Nouveau champ 'rating'
+        date: new Date()
       };
 
-      // Ajouter le commentaire au tableau
-      this.commentaires.push(nouveauCommentaire);
+
+      this.commentaire = nouveauCommentaire ;
+      this.LesCommentiares.emit(this.commentaire);
+
 
       // Réinitialiser le formulaire
       this.commentaireForm.reset();
     }
   }
+
 }
+
