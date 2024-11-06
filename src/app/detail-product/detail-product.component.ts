@@ -27,7 +27,6 @@ import {Commentaire} from "../Models/Commentaire";
 })
 export class DetailProductComponent implements OnInit{
   ProductAdetaile! : Product ;
-
   review! : Commentaire[] ;
 
   Cm: boolean = false;

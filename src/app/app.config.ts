@@ -38,6 +38,6 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(AngularFireAuthModule),
     provideRouter(routes),
     importProvidersFrom(HttpClientModule), // Correct way to import HttpClientModule
-    importProvidersFrom(FirestoreModule , Firestore , FirebaseAppModule , FirebaseApps)
+
   ]
 };
