@@ -20,14 +20,9 @@ export class CommandeService {
    }
 
 
-  getAllCommandes(): Observable<Commande[]> {
-    const collectionInstance = collection(this.fireStore, 'orders');
-    return collectionData(collectionInstance, { idField: 'id' }).pipe(
-      map(data => data.map(doc => {
-        const { userId, dateCommande, detail, montant } = doc;
-        return new Commande(userId, dateCommande.toDate(), detail, montant); // Assurez-vous que dateCommande est converti en objet Date
-      }))
-    );
+  getAllOrders(){
+    const collectionInstance = collection(this.fireStore,'orders')
+    return  collectionData(collectionInstance, {idField : 'id'})
   }
 
   getOrderId(id:string){

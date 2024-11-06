@@ -1,33 +1,25 @@
 <h2 class="handwritten text-primary mt-5 ms-5 bi bi-bag-check">Mes commandes :</h2>
 
 <div class="container mt-5">
-  <table class="styled-table">
-    <thead>
-    <tr>
-      <th>Image</th>
-      <th>Désignation</th>
-      <th>Prix (USD)</th>
-      <th>Quantité</th>
-      <th>Totale (USD)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Loop over commandes using async pipe -->
-    <tr *ngFor="let commande of commandes$ | async">
-      <td>
-        <img *ngIf="commande.detail[0].produit.images" [src]="commande.detail[0].produit.images[0]" alt="Product Image" style="max-width: 100px; max-height: 100px; object-fit: cover;"/>
-      </td>
-      <td>{{ commande.detail[0].produit.title }}</td>
-      <td>{{ commande.detail[0].produit.price | currency: 'USD' }}</td>
-      <td>{{ commande.detail[0].quantite }}</td>
-      <td>{{ commande.detail[0].produit.price * commande.detail[0].quantite | currency: 'USD' }}</td>
-    </tr>
+  <div *ngFor="let commande of commandes | async; let i = index;" class="order-card">
+    <!-- Header of the order card showing the order date -->
+    <div class="order-header">
+      <h4><strong>{{ commande.dateCommande | date: 'fullDate' }} à {{ commande.dateCommande | date: 'shortTime' }}</strong></h4>
+    </div>
 
-    <!-- Display total of the order -->
-    <tr class="total-row">
-      <td colspan="4" style="text-align: right; font-weight: bold;">Total :</td>
-      <td>{{ calculateTotal() | currency: 'USD' }}</td>
-    </tr>
-    </tbody>
-  </table>
+    <!-- Loop over each item in commande.detail to display products individually -->
+    <div class="order-items">
+      <div *ngFor="let item of commande.detail" class="product-card">
+        <div class="product-img">
+          <img *ngIf="item.produit?.images?.[0]" [src]="item.produit.images[0]" alt="Product Image" />
+        </div>
+        <div class="product-info">
+          <h5>{{ item.produit.title }}</h5>
+          <p>{{ item.produit.price | currency: 'USD' }}</p>
+          <p><strong>Quantité: {{ item.quantite }}</strong></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
 </div>
